@@ -1,0 +1,497 @@
+<catalogue xmlns="http://exemple.com/geo" version="1.0">
+    <lieu id="LIEU-001" categorie="Médinas">
+        <nom>Médina de Tétouan</nom>
+        <adresse>Tetouan,Maroc</adresse>
+        <description>Ancienne médina classée UNESCO, connue pour son architecture andalouse.</description>
+        <coordonnees>
+            <latitude>35.5711126</latitude>
+            <longitude>-5.3675546</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-002" categorie="Médinas">
+        <nom>Chefchaouen</nom>
+        <adresse>Chefchaouen,Maroc</adresse>
+        <description>Ville bleue du Maroc, célèbre pour ses ruelles peintes en bleu.</description>
+        <coordonnees>
+            <latitude>35.1687748</latitude>
+            <longitude>-5.2683454</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-003" categorie="Médinas">
+        <nom>Médina de Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Cœur historique très animé et touristique.</description>
+        <coordonnees>
+            <latitude>31.6277862</latitude>
+            <longitude>-7.9833943</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-004" categorie="Médinas">
+        <nom>Médina de Fès</nom>
+        <adresse>Fes,Maroc</adresse>
+        <description>Une des plus anciennes médinas du monde et patrimoine UNESCO.</description>
+        <coordonnees>
+            <latitude>34.0701392</latitude>
+            <longitude>-4.9742464</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-005" categorie="Médinas">
+        <nom>Asilah</nom>
+        <adresse>Asilah,Maroc</adresse>
+        <description>Ville côtière connue pour ses murs blancs et ses fresques artistiques.</description>
+        <coordonnees>
+            <latitude>35.461928</latitude>
+            <longitude>-6.036545</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-006" categorie="Médinas">
+        <nom>Médina de Meknès</nom>
+        <adresse>Meknes,Maroc</adresse>
+        <description>Ancienne capitale impériale avec de grandes portes historiques.</description>
+        <coordonnees>
+            <latitude>34.0701392</latitude>
+            <longitude>-4.9742464</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-007" categorie="Médinas">
+        <nom>Essaouira</nom>
+        <adresse>Essaouira,Maroc</adresse>
+        <description>Ville côtière fortifiée avec un important patrimoine culturel.</description>
+        <coordonnees>
+            <latitude>31.5118281</latitude>
+            <longitude>-9.7620903</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-008" categorie="Médinas">
+        <nom>Médina de Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Quartier historique de la capitale marocaine.</description>
+        <coordonnees>
+            <latitude>34.019368</latitude>
+            <longitude>-6.8277679</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-009" categorie="Médinas">
+        <nom>Taroudant</nom>
+        <adresse>Taroudant,Maroc</adresse>
+        <description>Petite ville fortifiée surnommée “la petite Marrakech”.</description>
+        <coordonnees>
+            <latitude>30.470651</latitude>
+            <longitude>-8.877922</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-010" categorie="Médinas">
+        <nom>Médina de Tanger</nom>
+        <adresse>Tanger,Maroc</adresse>
+        <description>Ville historique au carrefour entre l’Afrique et l’Europe.</description>
+        <coordonnees>
+            <latitude>35.7887881</latitude>
+            <longitude>-5.8144928</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-011" categorie="Plages">
+        <nom>Plage de Legzira</nom>
+        <adresse>SidiIfni,Maroc</adresse>
+        <description>Célèbre pour ses arches rocheuses naturelles spectaculaires.</description>
+        <coordonnees>
+            <latitude>29.4436222</latitude>
+            <longitude>-10.1179213</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-012" categorie="Plages">
+        <nom>Plage de Taghazout</nom>
+        <adresse>Taghazout,Agadir,Maroc</adresse>
+        <description>Spot mondial de surf très populaire.</description>
+        <coordonnees>
+            <latitude>30.5321417</latitude>
+            <longitude>-9.6969019</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-013" categorie="Plages">
+        <nom>Plage d'Essaouira</nom>
+        <adresse>Essaouira,Maroc</adresse>
+        <description>Plage ventée idéale pour le kitesurf.</description>
+        <coordonnees>
+            <latitude>31.4992557</latitude>
+            <longitude>-9.7641614</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-014" categorie="Plages">
+        <nom>Plage de Oualidia</nom>
+        <adresse>Oualidia,Maroc</adresse>
+        <description>Lagune calme connue pour les huîtres et la détente.</description>
+        <coordonnees>
+            <latitude>32.739742</latitude>
+            <longitude>-9.030097</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-015" categorie="Plages">
+        <nom>Plage de Dalia</nom>
+        <adresse>Tanger,Maroc</adresse>
+        <description>Plage tranquille au nord du Maroc.</description>
+        <coordonnees>
+            <latitude>35.9057755</latitude>
+            <longitude>-5.4755549</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-016" categorie="Plages">
+        <nom>Plage de Martil</nom>
+        <adresse>Martil,Tetouan,Maroc</adresse>
+        <description>Plage familiale proche de Tétouan.</description>
+        <coordonnees>
+            <latitude>35.622726</latitude>
+            <longitude>-5.2714596</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-017" categorie="Plages">
+        <nom>Plage de M'Diq</nom>
+        <adresse>Mdiq,Maroc</adresse>
+        <description>Station balnéaire très touristique.</description>
+        <coordonnees>
+            <latitude>35.6995671</latitude>
+            <longitude>-5.3294643</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-018" categorie="Plages">
+        <nom>Plage de Saïdia</nom>
+        <adresse>Saidia,Maroc</adresse>
+        <description>Longue plage de sable doré au nord-est du Maroc.</description>
+        <coordonnees>
+            <latitude>35.0975881</latitude>
+            <longitude>-2.2627348</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-019" categorie="Plages">
+        <nom>Plage d'Imsouane</nom>
+        <adresse>Imsouane,Maroc</adresse>
+        <description>Spot de surf réputé pour ses longues vagues.</description>
+        <coordonnees>
+            <latitude>30.8122917</latitude>
+            <longitude>-9.77902269</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-020" categorie="Plages">
+        <nom>Plage de Quemado</nom>
+        <adresse>AlHoceima,Maroc</adresse>
+        <description>Belle plage avec eau claire et paysage rocheux.</description>
+        <coordonnees>
+            <latitude>35.24395</latitude>
+            <longitude>-3.92607</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-021" categorie="Jardins">
+        <nom>Jardin d'essais botaniques de Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Grand jardin scientifique avec diverses espèces de plantes.</description>
+        <coordonnees>
+            <latitude>34.0083</latitude>
+            <longitude>-6.8458</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-022" categorie="Jardins">
+        <nom>Jardins Andalous Rabat</nom>
+        <adresse>KasbahOudayas,Rabat,Maroc</adresse>
+        <description>Jardins traditionnels inspirés du style andalou.</description>
+        <coordonnees>
+            <latitude>34.030181</latitude>
+            <longitude>-6.835399</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-023" categorie="Jardins">
+        <nom>Jardin Nouzhat Hassan Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Espace vert central dans la capitale.</description>
+        <coordonnees>
+            <latitude>34.0218949</latitude>
+            <longitude>-6.8337683</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-024" categorie="Jardins">
+        <nom>Les Jardins Exotiques de Bouknadel</nom>
+        <adresse>Bouknadel,Sale,Maroc</adresse>
+        <description>Jardin regroupant des plantes du monde entier.</description>
+        <coordonnees>
+            <latitude>34.09539</latitude>
+            <longitude>-6.76705</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-025" categorie="Jardins">
+        <nom>Jardin Mini Parc Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Petit espace vert de relaxation.</description>
+        <coordonnees>
+            <latitude>33.992548</latitude>
+            <longitude>-6.8182091</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-026" categorie="Jardins">
+        <nom>Jardin l'Hermitage Casablanca</nom>
+        <adresse>Casablanca,Maroc</adresse>
+        <description>Jardin calme et agréable en ville.</description>
+        <coordonnees>
+            <latitude>33.5642886</latitude>
+            <longitude>-7.6268658</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-027" categorie="Jardins">
+        <nom>Parc Hassan II Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Grand parc moderne au cœur de la capitale.</description>
+        <coordonnees>
+            <latitude>33.9946779</latitude>
+            <longitude>-6.8361126</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-028" categorie="Jardins">
+        <nom>Jardin Zoologique de Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Zoo moderne avec de nombreuses espèces animales.</description>
+        <coordonnees>
+            <latitude>33.9553042</latitude>
+            <longitude>-6.8943648</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-029" categorie="Jardins">
+        <nom>Anima André Heller Garden Ourika</nom>
+        <adresse>Ourika,Marrakech,Maroc</adresse>
+        <description>Jardin artistique et magique créé par André Heller.</description>
+        <coordonnees>
+            <latitude>31.4013466</latitude>
+            <longitude>-7.8266153</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-030" categorie="Jardins">
+        <nom>Parc Avicenne Rabat(Ibn Sina)</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Espace vert scientifique et éducatif.</description>
+        <coordonnees>
+            <latitude>33.98572</latitude>
+            <longitude>-6.84888</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-031" categorie="Jardins">
+        <nom>Jardin Majorelle Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Jardin célèbre créé par Yves Saint Laurent.</description>
+        <coordonnees>
+            <latitude>31.6414746</latitude>
+            <longitude>-8.0029077</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-032" categorie="Jardins">
+        <nom>Jardin du Japon Salé</nom>
+        <adresse>Sale,Maroc</adresse>
+        <description>Jardin inspiré du style japonais très calme.</description>
+        <coordonnees>
+            <latitude>34.095278</latitude>
+            <longitude>-6.766667</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-033" categorie="Jardins">
+        <nom>Jardins de la Ménara Marakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Jardins historiques avec bassins et vue sur l’Atlas.</description>
+        <coordonnees>
+            <latitude>31.6201</latitude>
+            <longitude>-8.0315</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-034" categorie="Jardins">
+        <nom>Jnan Sbil Fès</nom>
+        <adresse>Fes,Maroc</adresse>
+        <description>Jardin historique de Fès.</description>
+        <coordonnees>
+            <latitude>34.0599386</latitude>
+            <longitude>-4.9880517</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-035" categorie="Jardins">
+        <nom>Parc Murdoch Casablanca</nom>
+        <adresse>Casablanca,Maroc</adresse>
+        <description>Espace vert moderne et éducatif.</description>
+        <coordonnees>
+            <latitude>33.5792354</latitude>
+            <longitude>-7.6132038</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-036" categorie="Monuments">
+        <nom>Mosquée de la Koutoubia</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Grande mosquée emblématique de Marrakech.</description>
+        <coordonnees>
+            <latitude>31.6237506</latitude>
+            <longitude>-7.9933578</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-037" categorie="Monument">
+        <nom>Mosquée Hassan II Casablanca</nom>
+        <adresse>Casablanca,Maroc</adresse>
+        <description>La plus grande mosquée du Maroc et troisième du monde.</description>
+        <coordonnees>
+            <latitude>33.6082243</latitude>
+            <longitude>-7.6324728</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-038" categorie="Monuments">
+        <nom>Kasbah de Chefchaouen</nom>
+        <adresse>Chefchaouen,Maroc</adresse>
+        <description>Ancienne forteresse de la ville bleue.</description>
+        <coordonnees>
+            <latitude>35.1686182</latitude>
+            <longitude>-5.2618007</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-039" categorie="Monuments">
+        <nom>Palais de la Bahia Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Palais richement décoré à Marrakech.</description>
+        <coordonnees>
+            <latitude>31.6216327</latitude>
+            <longitude>-7.9819376</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-040" categorie="Monuments">
+        <nom>Bab Agnaou Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Porte historique de Marrakech.</description>
+        <coordonnees>
+            <latitude>31.6173906</latitude>
+            <longitude>-7.9906405</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-041" categorie="Monuments">
+        <nom>Tombeaux Saadiens Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Mausolées royaux décorés.</description>
+        <coordonnees>
+            <latitude>31.6172587</latitude>
+            <longitude>-7.988555</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-042" categorie="Monuments">
+        <nom>Mausolée Mohammed V Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Monument royal important à Rabat.</description>
+        <coordonnees>
+            <latitude>34.0226585</latitude>
+            <longitude>-6.821425</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-043" categorie="Monuments">
+        <nom>Aït Ben Haddou</nom>
+        <adresse>Ouarzazate,Maroc</adresse>
+        <description>Village fortifié classé UNESCO.</description>
+        <coordonnees>
+            <latitude>31.0451536</latitude>
+            <longitude>-7.1309706</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-044" categorie="Monuments">
+        <nom>Bab Boujloud Fès</nom>
+        <adresse>Fes,Maroc</adresse>
+        <description>Porte célèbre de la médina de Fès.</description>
+        <coordonnees>
+            <latitude>34.0617022</latitude>
+            <longitude>-4.9840213</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-045" categorie="Monuments">
+        <nom>Médersa Ben Youssef Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Ancienne école coranique .</description>
+        <coordonnees>
+            <latitude>31.6319841</latitude>
+            <longitude>-7.9860361</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-046" categorie="Monuments">
+        <nom>Palais El Badi Marrakech</nom>
+        <adresse>Marrakech,Maroc</adresse>
+        <description>Ruines d’un ancien palais saadien.</description>
+        <coordonnees>
+            <latitude>31.6181788</latitude>
+            <longitude>-7.9864859</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-047" categorie="Monuments">
+        <nom>Tour Hassan Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Minaret inachevé emblématique.</description>
+        <coordonnees>
+            <latitude>34.02414</latitude>
+            <longitude>-6.82279</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-048" categorie="Monuments">
+        <nom>Kasbah des Oudayas Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Ancienne kasbah avec vue sur l’océan.</description>
+        <coordonnees>
+            <latitude>34.0316566</latitude>
+            <longitude>-6.8358475</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-049" categorie="Archéologie">
+        <nom>Volubilis</nom>
+        <adresse>Volubilis,MoulayIdriss,Maroc</adresse>
+        <description>Site antique romain près de Larache.</description>
+        <coordonnees>
+            <latitude>34.0734729</latitude>
+            <longitude>-5.555366</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-050" categorie="Archéologie">
+        <nom>Lixus Larache</nom>
+        <adresse>Larache,Maroc</adresse>
+        <description>Ruines d’une ancienne ville romaine.</description>
+        <coordonnees>
+            <latitude>35.2007451</latitude>
+            <longitude>-6.1099762</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-051" categorie="Archéologie">
+        <nom>Banasa</nom>
+        <adresse>Gharb,Maroc</adresse>
+        <description>Site archéologique près du fleuve Sebou.</description>
+        <coordonnees>
+            <latitude>34.6019261</latitude>
+            <longitude>-6.1151257</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-052" categorie="Archéologie">
+        <nom>Thamusida</nom>
+        <adresse>Kenitra,Maroc</adresse>
+        <description>Ancien site historique du nord du Maroc.</description>
+        <coordonnees>
+            <latitude>34.33525</latitude>
+            <longitude>-6.49035</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-053" categorie="Archéologie">
+        <nom>Rirha</nom>
+        <adresse>Gharb,Maroc</adresse>
+        <description>Cercle de pierres mystérieux et ancien.</description>
+        <coordonnees>
+            <latitude>34.1836</latitude>
+            <longitude>-5.5550</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-054" categorie="Archéologie">
+        <nom>Cromlech de Mzora</nom>
+        <adresse>Asilah,Maroc</adresse>
+        <description>Site romain et mérinide.</description>
+        <coordonnees>
+            <latitude>35.40417</latitude>
+            <longitude>-5.94393</longitude>
+        </coordonnees>
+    </lieu>
+    <lieu id="LIEU-055" categorie="Archéologie">
+        <nom>Chellah Rabat</nom>
+        <adresse>Rabat,Maroc</adresse>
+        <description>Ancien palais en ruines.</description>
+        <coordonnees>
+            <latitude>34.0066667</latitude>
+            <longitude>-6.8202778</longitude>
+        </coordonnees>
+    </lieu>
+</catalogue>
