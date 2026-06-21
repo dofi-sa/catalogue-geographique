@@ -1,0 +1,1065 @@
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lieux Touristiques du Maroc</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: Georgia, serif; background: #FDF6E3;
+               color: #3D0000; height:100vh; display:flex; flex-direction:column; }
+
+        /* ── En-tête rouge royal ── */
+        header {
+          background: linear-gradient(135deg, #8B1A1A 0%, #A02020 50%, #8B1A1A 100%);
+          padding: 12px 20px; display:flex; align-items:center; gap:16px;
+          border-bottom: 3px solid #C9A84C; flex-shrink:0;
+        }
+        header h1 { font-size:1.2rem; color:#FDF6E3; letter-spacing:.8px; font-weight:400; }
+        header p  { font-size:.62rem; color:rgba(253,246,227,.6);
+                    letter-spacing:1.5px; margin-top:3px; text-transform:uppercase; }
+        .hdr-band { height:3px; background:linear-gradient(90deg,#C9A84C,#FFD700,#C9A84C,#FFD700,#C9A84C); flex-shrink:0; }
+        .hstats { margin-left:auto; display:flex; gap:1px; }
+        .pill { padding:6px 14px; text-align:center;
+                background:rgba(0,0,0,.2); border-left:1px solid rgba(201,168,76,.3); }
+        .pill strong { display:block; font-size:1.3rem; color:#C9A84C; line-height:1; }
+        .pill span   { font-size:.52rem; color:rgba(253,246,227,.55);
+                       letter-spacing:1.5px; text-transform:uppercase; }
+
+        /* ── Corps ── */
+        .body { display:flex; flex:1; overflow:hidden; }
+        #map  { flex:1; }
+
+        /* ── Panneau latéral ── */
+        .panel {
+          width:260px; background:#FDF6E3; border-left:3px solid #C9A84C;
+          display:flex; flex-direction:column; overflow:hidden;
+        }
+        .panel-title {
+          padding:10px 14px; background:#8B1A1A; color:#C9A84C;
+          font-size:.6rem; letter-spacing:3px; text-transform:uppercase;
+          border-bottom:2px solid #C9A84C;
+        }
+
+        /* ── Légende ── */
+        .leg { display:flex; align-items:center; gap:9px;
+               padding:7px 12px; font-size:.78rem; cursor:pointer;
+               border-bottom:1px solid #ECD9A3; transition:background .2s; }
+        .leg:hover { background:#FFF8E8; }
+        .leg.active { background:#FFF0D0; border-left:3px solid #8B1A1A; }
+        .dot { width:12px; height:12px; border-radius:50%; flex-shrink:0;
+               border:2px solid rgba(255,255,255,.6); }
+
+        /* ── Liste des lieux ── */
+        .liste { flex:1; overflow-y:auto; }
+        .card {
+          padding:9px 12px; border-bottom:1px solid #ECD9A3;
+          cursor:pointer; transition:all .2s; border-left:3px solid transparent;
+        }
+        .card:hover  { background:#FFF8E8; }
+        .card.active { background:#FFF0D0; border-left-color:#8B1A1A; }
+        .card-nom  { font-size:.82rem; font-weight:bold; color:#3D0000; }
+        .card-cat  { font-size:.62rem; color:#8B4A2A; margin-top:2px; font-style:italic; }
+        .card-adr  { font-size:.6rem;  color:#B0906A; margin-top:1px; }
+
+        /* ── Footer ── */
+        footer {
+          background:#8B1A1A; border-top:2px solid #C9A84C;
+          padding:6px 16px; text-align:center;
+          font-size:.55rem; color:rgba(201,168,76,.6);
+          letter-spacing:1.5px; text-transform:uppercase; flex-shrink:0;
+        }
+
+        /* ── Scrollbar ── */
+        .liste::-webkit-scrollbar { width:4px; }
+        .liste::-webkit-scrollbar-thumb { background:#C9A84C; }
+      </style>
+</head>
+<body>
+<header><div style="font-size:1.8rem; color:#C9A84C">♛</div>
+<div>
+<h1>Catalogue des Lieux Touristiques du Royaume du Maroc</h1>
+<p>Votre guide pour une expérience marocaine inoubliable</p>
+</div>
+<div class="hstats">
+<div class="pill">
+<strong>55</strong><span>Lieux</span>
+</div>
+<div class="pill">
+<strong>10</strong><span>Médinas</span>
+</div>
+<div class="pill">
+<strong>10</strong><span>Plages</span>
+</div>
+<div class="pill">
+<strong>15</strong><span>Jardins</span>
+</div>
+</div></header><div class="hdr-band"></div>
+<div class="body">
+<div id="map"></div>
+<div class="panel">
+<div class="panel-title">◈ Filtrer par catégorie</div>
+<div class="leg active" onclick="filtrer('tous')">
+<div class="dot" style="background:#C9A84C"></div>Tous les lieux
+          </div>
+<div class="leg" onclick="filtrer('Médinas')">
+<div class="dot" style="background:#C0392B"></div>Médinas
+          </div>
+<div class="leg" onclick="filtrer('Plages')">
+<div class="dot" style="background:#1A5276"></div>Plages
+          </div>
+<div class="leg" onclick="filtrer('Jardins')">
+<div class="dot" style="background:#1E8449"></div>Jardins
+          </div>
+<div class="leg" onclick="filtrer('Monuments')">
+<div class="dot" style="background:#7D6608"></div>Monuments
+          </div>
+<div class="leg" onclick="filtrer('Archéologie')">
+<div class="dot" style="background:#6E2F1A"></div>Archéologie
+          </div>
+<div class="liste">
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(35.5711126,-5.3675546)">
+<div class="card-nom">Médina de Tétouan</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Tetouan,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(35.1687748,-5.2683454)">
+<div class="card-nom">Chefchaouen</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Chefchaouen,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(31.6277862,-7.9833943)">
+<div class="card-nom">Médina de Marrakech</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(34.0701392,-4.9742464)">
+<div class="card-nom">Médina de Fès</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Fes,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(35.461928,-6.036545)">
+<div class="card-nom">Asilah</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Asilah,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(34.0701392,-4.9742464)">
+<div class="card-nom">Médina de Meknès</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Meknes,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(31.5118281,-9.7620903)">
+<div class="card-nom">Essaouira</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Essaouira,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(34.019368,-6.8277679)">
+<div class="card-nom">Médina de Rabat</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(30.470651,-8.877922)">
+<div class="card-nom">Taroudant</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Taroudant,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#C0392B" onclick="voirLieu(35.7887881,-5.8144928)">
+<div class="card-nom">Médina de Tanger</div>
+<div class="card-cat" style="color:#C0392B">Médinas</div>
+<div class="card-adr">Tanger,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(29.4436222,-10.1179213)">
+<div class="card-nom">Plage de Legzira</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">SidiIfni,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(30.5321417,-9.6969019)">
+<div class="card-nom">Plage de Taghazout</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Taghazout,Agadir,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(31.4992557,-9.7641614)">
+<div class="card-nom">Plage d'Essaouira</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Essaouira,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(32.739742,-9.030097)">
+<div class="card-nom">Plage de Oualidia</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Oualidia,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(35.9057755,-5.4755549)">
+<div class="card-nom">Plage de Dalia</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Tanger,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(35.622726,-5.2714596)">
+<div class="card-nom">Plage de Martil</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Martil,Tetouan,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(35.6995671,-5.3294643)">
+<div class="card-nom">Plage de M'Diq</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Mdiq,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(35.0975881,-2.2627348)">
+<div class="card-nom">Plage de Saïdia</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Saidia,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(30.8122917,-9.77902269)">
+<div class="card-nom">Plage d'Imsouane</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">Imsouane,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1A5276" onclick="voirLieu(35.24395,-3.92607)">
+<div class="card-nom">Plage de Quemado</div>
+<div class="card-cat" style="color:#1A5276">Plages</div>
+<div class="card-adr">AlHoceima,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.0083,-6.8458)">
+<div class="card-nom">Jardin d'essais botaniques de Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.030181,-6.835399)">
+<div class="card-nom">Jardins Andalous Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">KasbahOudayas,Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.0218949,-6.8337683)">
+<div class="card-nom">Jardin Nouzhat Hassan Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.09539,-6.76705)">
+<div class="card-nom">Les Jardins Exotiques de Bouknadel</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Bouknadel,Sale,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.992548,-6.8182091)">
+<div class="card-nom">Jardin Mini Parc Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.5642886,-7.6268658)">
+<div class="card-nom">Jardin l'Hermitage Casablanca</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Casablanca,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.9946779,-6.8361126)">
+<div class="card-nom">Parc Hassan II Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.9553042,-6.8943648)">
+<div class="card-nom">Jardin Zoologique de Rabat</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(31.4013466,-7.8266153)">
+<div class="card-nom">Anima André Heller Garden Ourika</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Ourika,Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.98572,-6.84888)">
+<div class="card-nom">Parc Avicenne Rabat(Ibn Sina)</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(31.6414746,-8.0029077)">
+<div class="card-nom">Jardin Majorelle Marrakech</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.095278,-6.766667)">
+<div class="card-nom">Jardin du Japon Salé</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Sale,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(31.6201,-8.0315)">
+<div class="card-nom">Jardins de la Ménara Marakech</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(34.0599386,-4.9880517)">
+<div class="card-nom">Jnan Sbil Fès</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Fes,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#1E8449" onclick="voirLieu(33.5792354,-7.6132038)">
+<div class="card-nom">Parc Murdoch Casablanca</div>
+<div class="card-cat" style="color:#1E8449">Jardins</div>
+<div class="card-adr">Casablanca,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6237506,-7.9933578)">
+<div class="card-nom">Mosquée de la Koutoubia</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(33.6082243,-7.6324728)">
+<div class="card-nom">Mosquée Hassan II Casablanca</div>
+<div class="card-cat" style="color:#7D6608">Monument</div>
+<div class="card-adr">Casablanca,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(35.1686182,-5.2618007)">
+<div class="card-nom">Kasbah de Chefchaouen</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Chefchaouen,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6216327,-7.9819376)">
+<div class="card-nom">Palais de la Bahia Marrakech</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6173906,-7.9906405)">
+<div class="card-nom">Bab Agnaou Marrakech</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6172587,-7.988555)">
+<div class="card-nom">Tombeaux Saadiens Marrakech</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(34.0226585,-6.821425)">
+<div class="card-nom">Mausolée Mohammed V Rabat</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.0451536,-7.1309706)">
+<div class="card-nom">Aït Ben Haddou</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Ouarzazate,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(34.0617022,-4.9840213)">
+<div class="card-nom">Bab Boujloud Fès</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Fes,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6319841,-7.9860361)">
+<div class="card-nom">Médersa Ben Youssef Marrakech</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(31.6181788,-7.9864859)">
+<div class="card-nom">Palais El Badi Marrakech</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Marrakech,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(34.02414,-6.82279)">
+<div class="card-nom">Tour Hassan Rabat</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#7D6608" onclick="voirLieu(34.0316566,-6.8358475)">
+<div class="card-nom">Kasbah des Oudayas Rabat</div>
+<div class="card-cat" style="color:#7D6608">Monuments</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(34.0734729,-5.555366)">
+<div class="card-nom">Volubilis</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Volubilis,MoulayIdriss,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(35.2007451,-6.1099762)">
+<div class="card-nom">Lixus Larache</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Larache,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(34.6019261,-6.1151257)">
+<div class="card-nom">Banasa</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Gharb,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(34.33525,-6.49035)">
+<div class="card-nom">Thamusida</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Kenitra,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(34.1836,-5.5550)">
+<div class="card-nom">Rirha</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Gharb,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(35.40417,-5.94393)">
+<div class="card-nom">Cromlech de Mzora</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Asilah,Maroc</div>
+</div>
+<div class="card" style="border-left-color:#6E2F1A" onclick="voirLieu(34.0066667,-6.8202778)">
+<div class="card-nom">Chellah Rabat</div>
+<div class="card-cat" style="color:#6E2F1A">Archéologie</div>
+<div class="card-adr">Rabat,Maroc</div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+   Catalogue des Lieux Touristiques du Royaume du Maroc · Filière GD · ENSIAS 2025/2026 
+</footer><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>
+        /* Couleurs par catégorie */
+        var COULEURS = {
+          "Médinas"    : "#C0392B",
+          "Plages"     : "#1A5276",
+          "Jardins"    : "#1E8449",
+          "Monuments"  : "#7D6608",
+          "Monument"   : "#7D6608",
+          "Archéologie": "#6E2F1A"
+        };
+
+        var ICONES = {
+          "Médinas"    : "🕌",
+          "Plages"     : "🏖",
+          "Jardins"    : "🌿",
+          "Monuments"  : "🏛",
+          "Monument"   : "🏛",
+          "Archéologie": "⛏"
+        };
+
+        /* Carte Leaflet — fond clair */
+        var map = L.map("map", {zoomControl: false}).setView([32.0, -6.0], 6);
+        L.control.zoom({position: "bottomright"}).addTo(map);
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+          {attribution: "© CARTO · © OpenStreetMap", maxZoom: 18}
+        ).addTo(map);
+
+        /* ── Données injectées par xsl:for-each ── */
+        var lieux = [];
+        
+        lieux.push({
+          id   : "LIEU-001",
+          nom  : "Médina de Tétouan",
+          cat  : "Médinas",
+          desc : "Ancienne médina classée UNESCO, connue pour son architecture andalouse.",
+          adr  : "Tetouan,Maroc",
+          lat  : 35.5711126,
+          lon  : -5.3675546
+        });
+        
+        lieux.push({
+          id   : "LIEU-002",
+          nom  : "Chefchaouen",
+          cat  : "Médinas",
+          desc : "Ville bleue du Maroc, célèbre pour ses ruelles peintes en bleu.",
+          adr  : "Chefchaouen,Maroc",
+          lat  : 35.1687748,
+          lon  : -5.2683454
+        });
+        
+        lieux.push({
+          id   : "LIEU-003",
+          nom  : "Médina de Marrakech",
+          cat  : "Médinas",
+          desc : "Cœur historique très animé et touristique.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6277862,
+          lon  : -7.9833943
+        });
+        
+        lieux.push({
+          id   : "LIEU-004",
+          nom  : "Médina de Fès",
+          cat  : "Médinas",
+          desc : "Une des plus anciennes médinas du monde et patrimoine UNESCO.",
+          adr  : "Fes,Maroc",
+          lat  : 34.0701392,
+          lon  : -4.9742464
+        });
+        
+        lieux.push({
+          id   : "LIEU-005",
+          nom  : "Asilah",
+          cat  : "Médinas",
+          desc : "Ville côtière connue pour ses murs blancs et ses fresques artistiques.",
+          adr  : "Asilah,Maroc",
+          lat  : 35.461928,
+          lon  : -6.036545
+        });
+        
+        lieux.push({
+          id   : "LIEU-006",
+          nom  : "Médina de Meknès",
+          cat  : "Médinas",
+          desc : "Ancienne capitale impériale avec de grandes portes historiques.",
+          adr  : "Meknes,Maroc",
+          lat  : 34.0701392,
+          lon  : -4.9742464
+        });
+        
+        lieux.push({
+          id   : "LIEU-007",
+          nom  : "Essaouira",
+          cat  : "Médinas",
+          desc : "Ville côtière fortifiée avec un important patrimoine culturel.",
+          adr  : "Essaouira,Maroc",
+          lat  : 31.5118281,
+          lon  : -9.7620903
+        });
+        
+        lieux.push({
+          id   : "LIEU-008",
+          nom  : "Médina de Rabat",
+          cat  : "Médinas",
+          desc : "Quartier historique de la capitale marocaine.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.019368,
+          lon  : -6.8277679
+        });
+        
+        lieux.push({
+          id   : "LIEU-009",
+          nom  : "Taroudant",
+          cat  : "Médinas",
+          desc : "Petite ville fortifiée surnommée “la petite Marrakech”.",
+          adr  : "Taroudant,Maroc",
+          lat  : 30.470651,
+          lon  : -8.877922
+        });
+        
+        lieux.push({
+          id   : "LIEU-010",
+          nom  : "Médina de Tanger",
+          cat  : "Médinas",
+          desc : "Ville historique au carrefour entre l’Afrique et l’Europe.",
+          adr  : "Tanger,Maroc",
+          lat  : 35.7887881,
+          lon  : -5.8144928
+        });
+        
+        lieux.push({
+          id   : "LIEU-011",
+          nom  : "Plage de Legzira",
+          cat  : "Plages",
+          desc : "Célèbre pour ses arches rocheuses naturelles spectaculaires.",
+          adr  : "SidiIfni,Maroc",
+          lat  : 29.4436222,
+          lon  : -10.1179213
+        });
+        
+        lieux.push({
+          id   : "LIEU-012",
+          nom  : "Plage de Taghazout",
+          cat  : "Plages",
+          desc : "Spot mondial de surf très populaire.",
+          adr  : "Taghazout,Agadir,Maroc",
+          lat  : 30.5321417,
+          lon  : -9.6969019
+        });
+        
+        lieux.push({
+          id   : "LIEU-013",
+          nom  : "Plage d'Essaouira",
+          cat  : "Plages",
+          desc : "Plage ventée idéale pour le kitesurf.",
+          adr  : "Essaouira,Maroc",
+          lat  : 31.4992557,
+          lon  : -9.7641614
+        });
+        
+        lieux.push({
+          id   : "LIEU-014",
+          nom  : "Plage de Oualidia",
+          cat  : "Plages",
+          desc : "Lagune calme connue pour les huîtres et la détente.",
+          adr  : "Oualidia,Maroc",
+          lat  : 32.739742,
+          lon  : -9.030097
+        });
+        
+        lieux.push({
+          id   : "LIEU-015",
+          nom  : "Plage de Dalia",
+          cat  : "Plages",
+          desc : "Plage tranquille au nord du Maroc.",
+          adr  : "Tanger,Maroc",
+          lat  : 35.9057755,
+          lon  : -5.4755549
+        });
+        
+        lieux.push({
+          id   : "LIEU-016",
+          nom  : "Plage de Martil",
+          cat  : "Plages",
+          desc : "Plage familiale proche de Tétouan.",
+          adr  : "Martil,Tetouan,Maroc",
+          lat  : 35.622726,
+          lon  : -5.2714596
+        });
+        
+        lieux.push({
+          id   : "LIEU-017",
+          nom  : "Plage de M'Diq",
+          cat  : "Plages",
+          desc : "Station balnéaire très touristique.",
+          adr  : "Mdiq,Maroc",
+          lat  : 35.6995671,
+          lon  : -5.3294643
+        });
+        
+        lieux.push({
+          id   : "LIEU-018",
+          nom  : "Plage de Saïdia",
+          cat  : "Plages",
+          desc : "Longue plage de sable doré au nord-est du Maroc.",
+          adr  : "Saidia,Maroc",
+          lat  : 35.0975881,
+          lon  : -2.2627348
+        });
+        
+        lieux.push({
+          id   : "LIEU-019",
+          nom  : "Plage d'Imsouane",
+          cat  : "Plages",
+          desc : "Spot de surf réputé pour ses longues vagues.",
+          adr  : "Imsouane,Maroc",
+          lat  : 30.8122917,
+          lon  : -9.77902269
+        });
+        
+        lieux.push({
+          id   : "LIEU-020",
+          nom  : "Plage de Quemado",
+          cat  : "Plages",
+          desc : "Belle plage avec eau claire et paysage rocheux.",
+          adr  : "AlHoceima,Maroc",
+          lat  : 35.24395,
+          lon  : -3.92607
+        });
+        
+        lieux.push({
+          id   : "LIEU-021",
+          nom  : "Jardin d'essais botaniques de Rabat",
+          cat  : "Jardins",
+          desc : "Grand jardin scientifique avec diverses espèces de plantes.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.0083,
+          lon  : -6.8458
+        });
+        
+        lieux.push({
+          id   : "LIEU-022",
+          nom  : "Jardins Andalous Rabat",
+          cat  : "Jardins",
+          desc : "Jardins traditionnels inspirés du style andalou.",
+          adr  : "KasbahOudayas,Rabat,Maroc",
+          lat  : 34.030181,
+          lon  : -6.835399
+        });
+        
+        lieux.push({
+          id   : "LIEU-023",
+          nom  : "Jardin Nouzhat Hassan Rabat",
+          cat  : "Jardins",
+          desc : "Espace vert central dans la capitale.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.0218949,
+          lon  : -6.8337683
+        });
+        
+        lieux.push({
+          id   : "LIEU-024",
+          nom  : "Les Jardins Exotiques de Bouknadel",
+          cat  : "Jardins",
+          desc : "Jardin regroupant des plantes du monde entier.",
+          adr  : "Bouknadel,Sale,Maroc",
+          lat  : 34.09539,
+          lon  : -6.76705
+        });
+        
+        lieux.push({
+          id   : "LIEU-025",
+          nom  : "Jardin Mini Parc Rabat",
+          cat  : "Jardins",
+          desc : "Petit espace vert de relaxation.",
+          adr  : "Rabat,Maroc",
+          lat  : 33.992548,
+          lon  : -6.8182091
+        });
+        
+        lieux.push({
+          id   : "LIEU-026",
+          nom  : "Jardin l'Hermitage Casablanca",
+          cat  : "Jardins",
+          desc : "Jardin calme et agréable en ville.",
+          adr  : "Casablanca,Maroc",
+          lat  : 33.5642886,
+          lon  : -7.6268658
+        });
+        
+        lieux.push({
+          id   : "LIEU-027",
+          nom  : "Parc Hassan II Rabat",
+          cat  : "Jardins",
+          desc : "Grand parc moderne au cœur de la capitale.",
+          adr  : "Rabat,Maroc",
+          lat  : 33.9946779,
+          lon  : -6.8361126
+        });
+        
+        lieux.push({
+          id   : "LIEU-028",
+          nom  : "Jardin Zoologique de Rabat",
+          cat  : "Jardins",
+          desc : "Zoo moderne avec de nombreuses espèces animales.",
+          adr  : "Rabat,Maroc",
+          lat  : 33.9553042,
+          lon  : -6.8943648
+        });
+        
+        lieux.push({
+          id   : "LIEU-029",
+          nom  : "Anima André Heller Garden Ourika",
+          cat  : "Jardins",
+          desc : "Jardin artistique et magique créé par André Heller.",
+          adr  : "Ourika,Marrakech,Maroc",
+          lat  : 31.4013466,
+          lon  : -7.8266153
+        });
+        
+        lieux.push({
+          id   : "LIEU-030",
+          nom  : "Parc Avicenne Rabat(Ibn Sina)",
+          cat  : "Jardins",
+          desc : "Espace vert scientifique et éducatif.",
+          adr  : "Rabat,Maroc",
+          lat  : 33.98572,
+          lon  : -6.84888
+        });
+        
+        lieux.push({
+          id   : "LIEU-031",
+          nom  : "Jardin Majorelle Marrakech",
+          cat  : "Jardins",
+          desc : "Jardin célèbre créé par Yves Saint Laurent.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6414746,
+          lon  : -8.0029077
+        });
+        
+        lieux.push({
+          id   : "LIEU-032",
+          nom  : "Jardin du Japon Salé",
+          cat  : "Jardins",
+          desc : "Jardin inspiré du style japonais très calme.",
+          adr  : "Sale,Maroc",
+          lat  : 34.095278,
+          lon  : -6.766667
+        });
+        
+        lieux.push({
+          id   : "LIEU-033",
+          nom  : "Jardins de la Ménara Marakech",
+          cat  : "Jardins",
+          desc : "Jardins historiques avec bassins et vue sur l’Atlas.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6201,
+          lon  : -8.0315
+        });
+        
+        lieux.push({
+          id   : "LIEU-034",
+          nom  : "Jnan Sbil Fès",
+          cat  : "Jardins",
+          desc : "Jardin historique de Fès.",
+          adr  : "Fes,Maroc",
+          lat  : 34.0599386,
+          lon  : -4.9880517
+        });
+        
+        lieux.push({
+          id   : "LIEU-035",
+          nom  : "Parc Murdoch Casablanca",
+          cat  : "Jardins",
+          desc : "Espace vert moderne et éducatif.",
+          adr  : "Casablanca,Maroc",
+          lat  : 33.5792354,
+          lon  : -7.6132038
+        });
+        
+        lieux.push({
+          id   : "LIEU-036",
+          nom  : "Mosquée de la Koutoubia",
+          cat  : "Monuments",
+          desc : "Grande mosquée emblématique de Marrakech.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6237506,
+          lon  : -7.9933578
+        });
+        
+        lieux.push({
+          id   : "LIEU-037",
+          nom  : "Mosquée Hassan II Casablanca",
+          cat  : "Monument",
+          desc : "La plus grande mosquée du Maroc et troisième du monde.",
+          adr  : "Casablanca,Maroc",
+          lat  : 33.6082243,
+          lon  : -7.6324728
+        });
+        
+        lieux.push({
+          id   : "LIEU-038",
+          nom  : "Kasbah de Chefchaouen",
+          cat  : "Monuments",
+          desc : "Ancienne forteresse de la ville bleue.",
+          adr  : "Chefchaouen,Maroc",
+          lat  : 35.1686182,
+          lon  : -5.2618007
+        });
+        
+        lieux.push({
+          id   : "LIEU-039",
+          nom  : "Palais de la Bahia Marrakech",
+          cat  : "Monuments",
+          desc : "Palais richement décoré à Marrakech.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6216327,
+          lon  : -7.9819376
+        });
+        
+        lieux.push({
+          id   : "LIEU-040",
+          nom  : "Bab Agnaou Marrakech",
+          cat  : "Monuments",
+          desc : "Porte historique de Marrakech.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6173906,
+          lon  : -7.9906405
+        });
+        
+        lieux.push({
+          id   : "LIEU-041",
+          nom  : "Tombeaux Saadiens Marrakech",
+          cat  : "Monuments",
+          desc : "Mausolées royaux décorés.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6172587,
+          lon  : -7.988555
+        });
+        
+        lieux.push({
+          id   : "LIEU-042",
+          nom  : "Mausolée Mohammed V Rabat",
+          cat  : "Monuments",
+          desc : "Monument royal important à Rabat.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.0226585,
+          lon  : -6.821425
+        });
+        
+        lieux.push({
+          id   : "LIEU-043",
+          nom  : "Aït Ben Haddou",
+          cat  : "Monuments",
+          desc : "Village fortifié classé UNESCO.",
+          adr  : "Ouarzazate,Maroc",
+          lat  : 31.0451536,
+          lon  : -7.1309706
+        });
+        
+        lieux.push({
+          id   : "LIEU-044",
+          nom  : "Bab Boujloud Fès",
+          cat  : "Monuments",
+          desc : "Porte célèbre de la médina de Fès.",
+          adr  : "Fes,Maroc",
+          lat  : 34.0617022,
+          lon  : -4.9840213
+        });
+        
+        lieux.push({
+          id   : "LIEU-045",
+          nom  : "Médersa Ben Youssef Marrakech",
+          cat  : "Monuments",
+          desc : "Ancienne école coranique .",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6319841,
+          lon  : -7.9860361
+        });
+        
+        lieux.push({
+          id   : "LIEU-046",
+          nom  : "Palais El Badi Marrakech",
+          cat  : "Monuments",
+          desc : "Ruines d’un ancien palais saadien.",
+          adr  : "Marrakech,Maroc",
+          lat  : 31.6181788,
+          lon  : -7.9864859
+        });
+        
+        lieux.push({
+          id   : "LIEU-047",
+          nom  : "Tour Hassan Rabat",
+          cat  : "Monuments",
+          desc : "Minaret inachevé emblématique.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.02414,
+          lon  : -6.82279
+        });
+        
+        lieux.push({
+          id   : "LIEU-048",
+          nom  : "Kasbah des Oudayas Rabat",
+          cat  : "Monuments",
+          desc : "Ancienne kasbah avec vue sur l’océan.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.0316566,
+          lon  : -6.8358475
+        });
+        
+        lieux.push({
+          id   : "LIEU-049",
+          nom  : "Volubilis",
+          cat  : "Archéologie",
+          desc : "Site antique romain près de Larache.",
+          adr  : "Volubilis,MoulayIdriss,Maroc",
+          lat  : 34.0734729,
+          lon  : -5.555366
+        });
+        
+        lieux.push({
+          id   : "LIEU-050",
+          nom  : "Lixus Larache",
+          cat  : "Archéologie",
+          desc : "Ruines d’une ancienne ville romaine.",
+          adr  : "Larache,Maroc",
+          lat  : 35.2007451,
+          lon  : -6.1099762
+        });
+        
+        lieux.push({
+          id   : "LIEU-051",
+          nom  : "Banasa",
+          cat  : "Archéologie",
+          desc : "Site archéologique près du fleuve Sebou.",
+          adr  : "Gharb,Maroc",
+          lat  : 34.6019261,
+          lon  : -6.1151257
+        });
+        
+        lieux.push({
+          id   : "LIEU-052",
+          nom  : "Thamusida",
+          cat  : "Archéologie",
+          desc : "Ancien site historique du nord du Maroc.",
+          adr  : "Kenitra,Maroc",
+          lat  : 34.33525,
+          lon  : -6.49035
+        });
+        
+        lieux.push({
+          id   : "LIEU-053",
+          nom  : "Rirha",
+          cat  : "Archéologie",
+          desc : "Cercle de pierres mystérieux et ancien.",
+          adr  : "Gharb,Maroc",
+          lat  : 34.1836,
+          lon  : -5.5550
+        });
+        
+        lieux.push({
+          id   : "LIEU-054",
+          nom  : "Cromlech de Mzora",
+          cat  : "Archéologie",
+          desc : "Site romain et mérinide.",
+          adr  : "Asilah,Maroc",
+          lat  : 35.40417,
+          lon  : -5.94393
+        });
+        
+        lieux.push({
+          id   : "LIEU-055",
+          nom  : "Chellah Rabat",
+          cat  : "Archéologie",
+          desc : "Ancien palais en ruines.",
+          adr  : "Rabat,Maroc",
+          lat  : 34.0066667,
+          lon  : -6.8202778
+        });
+        
+
+        var marqueurs = [];
+
+        lieux.forEach(function(l) {
+          var c = COULEURS[l.cat] || "#8B1A1A";
+          var ic = ICONES[l.cat]  || "📍";
+
+          /* Marqueur personnalisé avec emoji */
+          var iconHtml =
+            '<div style="width:32px;height:32px;background:' + c + ';' +             'border:2px solid #C9A84C;border-radius:50%;' +             'display:flex;align-items:center;justify-content:center;' +             'font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.35)">' +
+            ic + '</div>';
+
+          var icon = L.divIcon({
+            html: iconHtml, className: "",
+            iconSize: [32, 32], iconAnchor: [16, 16]
+          });
+
+          var m = L.marker([l.lat, l.lon], {icon: icon});
+
+          /* Popup riche */
+          var pop = document.createElement("div");
+          pop.style.cssText =
+            "font-family:Georgia,serif;min-width:200px;background:#FDF6E3";
+
+          var band = document.createElement("div");
+          band.style.cssText =
+            "background:" + c + ";padding:8px 12px;margin:-4px -2px 8px";
+          var titre = document.createElement("strong");
+          titre.style.cssText =
+            "font-size:.95rem;color:#fff;display:block";
+          titre.textContent = ic + " " + l.nom;
+          band.appendChild(titre); pop.appendChild(band);
+
+          var catEl = document.createElement("div");
+          catEl.style.cssText =
+            "font-size:.65rem;color:" + c + ";text-transform:uppercase;" +
+            "letter-spacing:1px;margin-bottom:6px";
+          catEl.textContent = l.cat;
+          pop.appendChild(catEl);
+
+          var hr = document.createElement("hr");
+          hr.style.cssText = "border:none;border-top:1px solid #ECD9A3;margin:6px 0";
+          pop.appendChild(hr);
+
+          var descEl = document.createElement("p");
+          descEl.style.cssText = "font-size:.78rem;color:#5A3020;line-height:1.5";
+          descEl.textContent = l.desc;
+          pop.appendChild(descEl);
+
+          var adrEl = document.createElement("p");
+          adrEl.style.cssText =
+            "font-size:.65rem;color:#C9A84C;margin-top:5px;font-style:italic";
+          adrEl.textContent = "📍 " + l.adr + " · " + l.id;
+          pop.appendChild(adrEl);
+
+          m.bindPopup(pop, {maxWidth: 260});
+          m.bindTooltip(l.nom, {direction: "top", offset: [0, -10]});
+          m.addTo(map);
+          m.cat = l.cat;
+          marqueurs.push(m);
+        });
+
+        /* ── Cartes dans le panneau → clic → zoom ── */
+        function voirLieu(lat, lon) {
+          map.flyTo([lat, lon], 14, {animate: true, duration: 1.0});
+        }
+
+        /* ── Filtrage par catégorie ── */
+        function filtrer(cat) {
+          marqueurs.forEach(function(m) {
+            if (cat === "tous" || m.cat === cat) {
+              m.addTo(map);
+            } else {
+              map.removeLayer(m);
+            }
+          });
+          document.querySelectorAll(".leg").forEach(function(l) {
+            l.classList.remove("active");
+          });
+          event.currentTarget.classList.add("active");
+        }
+      </script>
+</body>
+</html>
