@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://exemple.com/geo"
+    xmlns="http://exemple.com/geo"
+    elementFormDefault="qualified">
+
+    <xs:simpleType name="idType">
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="LIEU-\d{3}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Latitude restreinte au Maroc (20.0 à 37.0) -->
+    <xs:simpleType name="latitudeType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="20.0" />
+            <xs:maxInclusive value="37.0" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Longitude restreinte au Maroc (-18.0 à 0.0) -->
+    <xs:simpleType name="longitudeType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="-18.0" />
+            <xs:maxInclusive value="0.0" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Type complexe pour les coordonnées -->
+    <xs:complexType name="coordonneesType">
+        <xs:sequence>
+            <xs:element name="latitude" type="latitudeType" />
+            <xs:element name="longitude" type="longitudeType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Type complexe pour un lieu -->
+    <xs:complexType name="lieuType">
+        <xs:sequence>
+            <xs:element name="nom" type="xs:string" />
+            <xs:element name="adresse" type="xs:string" />
+            <xs:element name="description" type="xs:string" />
+            <xs:element name="coordonnees" type="coordonneesType" />
+        </xs:sequence>
+        <xs:attribute name="id" type="idType" use="required" />
+        <xs:attribute name="categorie" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <!-- Élément racine -->
+    <xs:element name="catalogue">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lieu" type="lieuType" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
