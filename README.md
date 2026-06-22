@@ -27,19 +27,13 @@ catalogue-geographique/
 │ └── catalogue.xml # Cleaned and structured XML output
 │
 ├── scripts/
-│ ├── 01_csv_to_xml.py # Data cleaning + XML generation
-│ ├── 02_validate_xsd.py # XSD validation script
-│ └── 03_generate_html.py # XSL transformation for HTML map
-│
+│ ├── 01_csv_to_xml.py 
+│ ├── 04_export_geojson.py 
+│ └── carte_interactive.html 
 ├── schema/
-│ └── lieux.xsd # XML Schema Definition with constraints
+│ └── lieux.xsd # XML Schema D
 │
-├── xsl/
-│ └── carte.xsl # XSL transformation stylesheet
-│
-├── output/
-│ ├── rapport_validation.log # XSD validation report
-│ └── carte.html # Final interactive map page
+├── carte.png # resultat finale 
 │
 ├── README.md # Project documentation
 ├── .gitignore # Git ignore rules
